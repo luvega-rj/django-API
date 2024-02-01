@@ -24,4 +24,25 @@ def jifunze_list(request):
       serializer.save()
       return Response(serializer.data, status=status.HTTP_201_CREATED)
    
-   
+@api_view(['GET','PUT' 'DELETE'])
+def jifunze_detail(request, id):
+  
+  try:
+  #pk is primary key
+    jifunze = Jifunze.objects.get(pk=id) 
+  except Jifunze.DoesNotExist:
+    return Response(status=status.HTTP_404_NOT_FOUND)   
+
+  
+  if request.method == 'GET':
+    serializer = JifunzeSerializer(jifunze)
+    return Response(serializer.data)
+  elif request.method == 'POST':
+    pass
+
+  elif request.method == 'DELETE':
+    pass
+  
+
+
+ 

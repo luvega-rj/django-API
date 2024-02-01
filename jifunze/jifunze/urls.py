@@ -20,5 +20,6 @@ from jifunze import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('jifunze/', views.jifunze_list)
+    path('jifunze/', views.jifunze_list),
+    path('jifunze/<int:id>', views.jifunze_detail)
 ]
