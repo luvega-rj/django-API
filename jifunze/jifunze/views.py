@@ -16,7 +16,9 @@ def jifunze_list(request):
  if request.method == 'GET':
     jifunze = Jifunze.objects.all()
     serializer = JifunzeSerializer(jifunze, many=True)
-    return JsonResponse({"jifunze": serializer.data})
+    return Response(serializer.data)
+
+    #return JsonResponse({"jifunze": serializer.data})#
  
  if request.method == 'POST':
     serializer = JifunzeSerializer(data=request.data)
@@ -24,7 +26,7 @@ def jifunze_list(request):
       serializer.save()
       return Response(serializer.data, status=status.HTTP_201_CREATED)
    
-@api_view(['GET','PUT' 'DELETE'])
+@api_view(['GET','PUT', 'DELETE'])
 def jifunze_detail(request, id):
   
   try:
@@ -37,11 +39,18 @@ def jifunze_detail(request, id):
   if request.method == 'GET':
     serializer = JifunzeSerializer(jifunze)
     return Response(serializer.data)
-  elif request.method == 'POST':
-    pass
+  
+  elif request.method == 'PUT':
+    serializer = JifunzeSerializer(jifunze, data=request.data)
+    if serializer.is_valid():
+      serializer.save()
+      return Response(serializer.data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 
   elif request.method == 'DELETE':
-    pass
+    jifunze.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)
   
 
 

@@ -18,8 +18,11 @@ from django.contrib import admin
 from django.urls import path
 from jifunze import views
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('jifunze/', views.jifunze_list),
     path('jifunze/<int:id>', views.jifunze_detail)
 ]
+
+
